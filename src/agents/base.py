@@ -94,7 +94,12 @@ class MultiProviderClient:
         self._groq_client_idx = (self._groq_client_idx + 1) % len(self.groq_clients)
         return client, idx + 1
 
-    def generate_response(self, provider, model, messages, enable_thinking=False, temperature=0.3):
+    def generate_response(self, provider, model=None, messages=None, enable_thinking=False, temperature=0.3):
+        # Support backward-compatible calls: generate_response(model, messages, enable_thinking=...)
+        if isinstance(model, list) and messages is None:
+            messages = model
+            model = provider
+            provider = "nvidia"
         max_retries = 4
         for attempt in range(max_retries):
             try:
@@ -277,3 +282,5 @@ class BaseAgent:
             return json.loads(content)
         except:
             return None
+
+NemotronClient = MultiProviderClient

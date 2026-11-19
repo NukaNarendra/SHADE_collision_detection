@@ -122,6 +122,12 @@ def run_live_trial(task_item, secret_token):
             partner_agent = agent_a
 
         response = current_agent.get_response()
+        if response.get("status") == "error":
+            status_text.empty()
+            progress_bar.empty()
+            st.error(f"⚠️ Live API Call Failed: {response.get('error', 'Authentication/Connection Error')}\n\nTo run live agent trials, please set NVIDIA_API_KEY in your .env file, or use the pre-recorded trials in shade_dashboard.py.")
+            st.session_state.is_running = False
+            return
 
         logger.log_turn(
             turn_number=turn + 1,

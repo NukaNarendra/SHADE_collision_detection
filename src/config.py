@@ -14,11 +14,14 @@ class ProjectConfig:
         # NVIDIA NIM routes Nemotron, Laguna, GPT-OSS.
         # Mistral goes to Native SDK. Groq goes to Groq SDK. TokenRouter routes GLM.
         self.available_models = {
-            "nemotron-120": {"model": "nvidia/nemotron-3-super-120b-a12b", "provider": "nvidia"},
-            "mistral": {"model": "mistral-medium-latest", "provider": "mistral"},
-            "laguna": {"model": "poolside/laguna-xs-2.1", "provider": "nvidia"},
+            # Active NVIDIA NIM Endpoints (build.nvidia.com)
+            "nemotron-120": {"model": "nvidia/nemotron-3.5-super-vl-120b-a12b", "provider": "nvidia"},
             "nemetron-3.5": {"model": "nvidia/nemotron-3.5-lightning-30b-a3b", "provider": "nvidia"},
-            "gpt-oss": {"model": "openai/gpt-oss-120b", "provider": "nvidia"},
+            "laguna": {"model": "poolside/laguna-xs-2.1", "provider": "nvidia"},
+            "gpt-oss": {"model": "openai/gpt-oss-20b", "provider": "nvidia"},
+            
+            # Alternative Multi-Provider Endpoints
+            "mistral": {"model": "mistral-medium-latest", "provider": "mistral"},
             "groq-compound": {"model": "groq/compound", "provider": "groq"},
             "glm-5.3": {"model": "z-ai/glm-5.3-free", "provider": "tokenrouter"},
         }
